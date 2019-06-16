@@ -53,7 +53,7 @@ func main() {
 	// // set up the client config
 	var clientConfig *rest.Config
 	clientConfig, err := clientcmd.BuildConfigFromFlags("", "")
-	// clientConfig, err = config()
+	clientConfig, err = config()
 	clientset, err := kubernetes.NewForConfig(clientConfig)
 	informers.NewSharedInformerFactory(clientset, 0)
 
@@ -95,8 +95,8 @@ func main() {
 	apiVersionsGetter := custom_metrics.NewAvailableAPIsGetter(clientset.Discovery())
 	customMetricsClient := custom_metrics.NewForConfig(clientConfig, restMapper, apiVersionsGetter)
 
-	custom_metrics_list, err := customMetricsClient.NamespacedMetrics("").
-		GetForObjects(schema.GroupKind{Kind: "Pod"}, labels.Everything(), "tcp_count", labels.Everything())
+	custom_metrics_list, err := customMetricsClient.NamespacedMetrics("istio-system").
+		GetForObjects(schema.GroupKind{Kind: "Pod"}, labels.Everything(), "spec_cpu_quota", labels.Everything())
 	if err != nil {
 		fmt.Println(err.Error())
 	}
