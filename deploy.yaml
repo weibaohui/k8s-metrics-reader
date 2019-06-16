@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: metrics
+  name: metrics
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      run: metrics
+  template:
+    metadata:
+      labels:
+        run: metrics
+    spec:
+      containers:
+        - image: weibh/metrics
+          name: metrics
+          imagePullPolicy: Always
+   
