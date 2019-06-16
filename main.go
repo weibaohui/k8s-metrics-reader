@@ -103,8 +103,8 @@ func main() {
 	if custom_metrics_list != nil && len(custom_metrics_list.Items) > 0 {
 
 		for _, m := range custom_metrics_list.Items {
-			fmt.Println(m.Metric.Name,m.DescribedObject.Name,m.DescribedObject.Namespace,m.DescribedObject.Kind)
-			fmt.Println(m.Value.MilliValue())
+			fmt.Println(m.DescribedObject.Name,m.DescribedObject.Namespace,m.DescribedObject.Kind)
+			fmt.Println(m.Metric.Name,m.Value,m.Value.MilliValue())
 		}
 	}
 
